@@ -1,0 +1,2216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuestra Historia ❤️</title>
+
+<style>
+:root{
+--color-prueba:#F50B0B;
+--color-botones:#5D2417;
+--color-titulo:#825339;
+--color-principal:#C57D56;
+--color-secundario:#E6B89C;
+--color-fondo:#FFF8F3;
+--color-texto:#3b2a24;
+}
+
+body{
+margin:0;
+font-family:'Poppins', sans-serif;
+background:var(--color-principal); /* sin degradado */
+color:var(--color-texto);
+text-align:center;
+overflow-x:hidden
+}
+
+header{
+padding:60px 20px;
+color:white;
+background:var(--color-botones);
+}
+
+h1{margin:0;font-size:40px}
+
+section{padding:50px 20px}
+
+.card{
+background:var(--color-secundario);
+padding:30px;
+border-radius:20px;
+max-width:750px;
+margin:auto;
+box-shadow:0 15px 35px rgba(0,0,0,.12);
+color:var(--color-texto);
+}
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-top:30px
+}
+
+.gallery img{
+width:100%;
+border-radius:20px
+}
+
+#timer{
+font-size:28px;
+margin-top:15px;
+font-weight:bold;
+color:white;
+text-shadow:0 0 10px rgba(0,0,0,0.4)
+}
+
+button{
+background:var(--color-botones);
+border:none;
+color:white;
+padding:14px 26px;
+border-radius:12px;
+font-size:17px;
+cursor:pointer;
+transition:.2s
+}
+
+button:hover{transform:scale(1.05)}
+
+footer{
+margin-top:60px;
+padding:30px;
+background:var(--color-botones);
+color:white
+}
+
+/* corazones */
+.hearts{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+overflow:hidden
+}
+
+.heart{
+position:absolute;
+font-size:22px;
+animation:float 6s linear infinite
+}
+
+@keyframes float{
+0%{transform:translateY(100vh) scale(0)}
+100%{transform:translateY(-10vh) scale(1.5)}
+}
+
+/* globos */
+.balloons{
+position:fixed;
+bottom:-150px;
+width:100%;
+pointer-events:none
+}
+
+.balloon{
+position:absolute;
+width:60px;
+height:80px;
+border-radius:50%;
+animation:balloonFloat 12s linear infinite;
+pointer-events:auto
+}
+
+.balloon::after{
+content:'';
+position:absolute;
+width:2px;
+height:60px;
+background:#888;
+
+left:50%;
+transform:translateX(-50%);
+
+/* 👇 esto es la clave */
+top:100%;
+}
+
+@keyframes balloonFloat{
+0%{
+transform:translateY(0) translateX(0);
+}
+25%{
+transform:translateY(-30vh) translateX(-15px);
+}
+50%{
+transform:translateY(-60vh) translateX(15px);
+}
+75%{
+transform:translateY(-90vh) translateX(-10px);
+}
+100%{
+transform:translateY(-120vh) translateX(10px);
+}
+}
+
+.secretText{color:var(--color-texto)}
+.secretText:hover{color:var(--color-botones)}
+
+#secretMessage{
+display:none;
+margin-top:20px;
+font-size:22px;
+color:var(--color-botones);
+font-weight:bold
+}
+
+input{
+padding:10px;
+border-radius:10px;
+border:1px solid #ccc;
+margin-top:10px
+}
+
+/* cielo */
+#sky{
+background:linear-gradient(#87ceeb,#bde0fe,#e0f7ff);
+color:#333;
+padding:60px 20px;
+position:relative;
+overflow:hidden;
+transition:background 0.5s;
+width:100%;
+min-height:300px;
+z-index:1;
+}
+
+#sky::after{
+mix-blend-mode: screen;
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:200%;
+height:200%;
+
+background:
+radial-gradient(circle at 20% 30%, rgba(255,120,200,0.18), transparent 60%),
+radial-gradient(circle at 70% 40%, rgba(120,180,255,0.18), transparent 65%),
+radial-gradient(circle at 50% 80%, rgba(180,120,255,0.15), transparent 70%),
+radial-gradient(circle at 80% 70%, rgba(100,150,255,0.12), transparent 60%);
+
+filter: blur(40px);
+opacity:0.5;
+
+animation: nebulaMove 80s linear infinite;
+
+z-index:0;
+pointer-events:none;
+}
+
+#sky::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:
+radial-gradient(circle at 30% 40%, rgba(255,255,255,0.08), transparent 60%),
+radial-gradient(circle at 70% 60%, rgba(100,150,255,0.1), transparent 60%);
+z-index:0;
+pointer-events:none;
+}
+
+.star{
+position:absolute;
+color:#FFD93D;
+font-size:18px;
+cursor:pointer;
+opacity:0.9;
+z-index: 2;
+text-shadow:0 0 8px rgba(255,217,61,0.8);
+animation: twinkle 2s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+0%,100% { opacity: 0.3; transform: scale(1); }
+50% { opacity: 1; transform: scale(1.3); }
+}
+
+/* pregunta */
+#noBtn{position:relative}
+
+/* final */
+#finalSecret{
+font-size:10px;
+opacity:.4;
+margin-top:60px
+}
+
+.musicControls button{margin:5px}
+
+.intro{
+max-width:700px;
+margin:20px auto;
+font-size:18px;
+line-height:1.6;
+opacity:0.95;
+}
+
+/* ❤️ GALERÍA CORAZÓN (corregida) */
+.heart-gallery{
+display:grid;
+grid-template-columns: repeat(auto-fill, minmax(100px,1fr));
+gap:12px;
+max-width:700px;
+margin:40px auto;
+
+mask-image:
+radial-gradient(circle at 30% 35%, black 25%, transparent 26%),
+radial-gradient(circle at 70% 35%, black 25%, transparent 26%),
+linear-gradient(black,black);
+
+mask-size:50% 50%,50% 50%,100% 100%;
+mask-position:left top,right top,center bottom;
+mask-repeat:no-repeat;
+}
+
+.heart-gallery img,
+.heart-gallery video{
+width:100%;
+aspect-ratio:1/1;
+object-fit:cover;
+border-radius:18px;
+cursor:pointer;
+transition:transform .3s, box-shadow .3s;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.heart-gallery img:hover,
+.heart-gallery video:hover{
+transform:scale(1.15);
+z-index:2;
+box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* lista */
+.loveList{
+list-style:none;
+padding:0;
+margin-top:20px;
+}
+
+.loveList li{
+opacity:0;
+transform:translateY(15px);
+font-size:18px;
+margin:10px 0;
+transition:all .6s;
+color:var(--color-texto);
+}
+
+.loveList li.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* visor */
+.viewer{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.9);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:9999;
+}
+
+.viewer img,
+.viewer video{
+max-width:90%;
+max-height:85%;
+border-radius:20px;
+box-shadow:0 0 40px rgba(0,0,0,0.6);
+}
+
+.closeViewer{
+position:absolute;
+top:20px;
+right:30px;
+font-size:35px;
+color:white;
+cursor:pointer;
+}
+
+.dark-mode{
+--color-principal:#2b1a14;
+--color-secundario:#3a241c;
+--color-fondo:#1e1410;
+--color-texto:#f5e9e4;
+--color-botones:#6e3a2c;
+--color-titulo:#f5e9e4;
+}
+.dark-mode #sky{
+background:#0b0f2a;
+color:white;
+}
+
+#darkBtn{
+position:absolute;
+top:20px;
+right:20px;
+font-size:14px;
+padding:10px 15px;
+border-radius:10px;
+}
+
+.loveBtn{
+background:var(--color-botones);
+color:white;
+}
+
+.loveBtn:hover{
+background:var(--color-titulo);
+}
+
+.loveCounter{
+font-size:26px;
+font-weight:bold;
+color:var(--color-botones);
+}
+
+.cloud{
+position:absolute;
+background:white;
+border-radius:50px;
+opacity:0.85;
+backdrop-filter: blur(2px);
+animation:moveClouds 60s linear infinite;
+z-index:3;
+}
+
+.cloud::before,
+.cloud::after{
+content:"";
+position:absolute;
+background:white;
+border-radius:50%;
+}
+
+.cloud::before{
+width:60px;
+height:60px;
+top:-30px;
+left:10px;
+}
+
+.cloud::after{
+width:80px;
+height:80px;
+top:-40px;
+right:10px;
+}
+
+@keyframes moveClouds{
+0%{transform:translateX(-200px)}
+100%{transform:translateX(110vw)}
+}
+
+.sun{
+position:absolute;
+top:60px;
+right:80px;
+width:100px;
+height:100px;
+background:radial-gradient(circle, #fff9a6 0%, #ffe066 70%, #ffc94d 100%);
+border-radius:50%;
+box-shadow:0 0 80px rgba(255,217,61,0.8);
+z-index:1;
+transition: all 1.5s ease;
+}
+
+.moon{
+position:absolute;
+top:40px;
+right:5%;
+
+width:100px;
+height:100px;
+border-radius:50%;
+
+background: #f5f5f5;
+
+overflow:hidden;
+z-index: 5;
+
+ box-shadow:
+    0 0 20px rgba(255,255,255,0.2),
+    0 0 40px rgba(200,220,255,0.2);
+
+  animation: moonGlow 4s ease-in-out infinite;
+}
+
+.moon::before,
+.moon::after{
+content:"";
+position:absolute;
+border-radius:50%;
+background:rgba(0,0,0,0.35);
+filter: blur(0.8px);
+}
+
+/* cráter 1 */
+.moon::before{
+width:18px;
+height:18px;
+top:15px;
+left:20px;
+}
+
+/* cráter 2 */
+.moon::after{
+width:12px;
+height:12px;
+bottom:18px;
+right:15px;
+}
+
+@keyframes moonGlow{
+  0%,100%{
+    box-shadow:
+      0 0 20px rgba(255,255,255,0.2),
+      0 0 40px rgba(200,220,255,0.2);
+  }
+  50%{
+    box-shadow:
+      0 0 30px rgba(255,255,255,0.4),
+      0 0 60px rgba(200,220,255,0.3);
+  }
+}
+
+.star{
+opacity:0;
+transition:opacity 0.5s;
+}
+
+.dark-mode .star{
+opacity:0.8;
+}
+
+.skyText{
+opacity:0;
+transition:opacity 0.5s;
+}
+
+.dark-mode .skyText{
+opacity:1;
+}
+
+.sunset{
+background:
+linear-gradient(to top,
+#2b0000 0%,     /* base oscura */
+#5a0a0a 20%,    /* rojo oscuro */
+#a61c1c 40%,    /* rojo */
+#ff4d00 65%,    /* naranja fuerte */
+#ff7a1a 85%,    /* naranja */
+#ff944d 100%    /* naranja claro (NO blanco) */
+) !important;
+
+transition: background 2s ease;
+}
+
+.sunset .sun{
+top:30% !important;
+left:50% !important;
+right:auto !important;
+
+transform:translate(-50%, -50%) scale(1.4);
+
+/* 🎨 color atardecer real */
+background: radial-gradient(circle,
+#fff1a8 0%,   /* centro suave */
+#ffd166 40%,  /* dorado */
+#ff9e57 75%,  /* naranja cálido */
+#ff7b3a 100%  /* borde más profundo */
+);
+
+box-shadow:0 0 40px rgba(255,180,100,0.6),
+0 0 80px rgba(255,140,60,0.5),
+0 0 120px rgba(255,120,40,0.4);
+
+transition: all 2s ease;
+}
+
+.sunset::after{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+
+background:
+linear-gradient(
+to top,
+rgba(0,0,0,0.4) 0%,
+rgba(0,0,0,0.2) 20%,
+transparent 40%
+);
+
+pointer-events:none;
+
+z-index:2;
+}
+
+.sunset::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+
+background:
+radial-gradient(circle at 50% 60%, rgba(255,120,60,0.25), transparent 60%);
+
+pointer-events:none;
+
+z-index:2;
+}
+
+.shooting-star{
+position:absolute;
+width:2px;
+height:80px;
+background:linear-gradient(transparent, white);
+opacity:0.8;
+transform:rotate(45deg);
+animation:shoot 1s linear forwards;
+}
+
+@keyframes shoot{
+0%{
+transform:translate(0,0) rotate(45deg);
+opacity:1;
+}
+100%{
+transform:translate(-300px,300px) rotate(45deg);
+opacity:0;
+}
+}
+
+.bird {
+position: absolute;
+pointer-events: none;
+}
+
+.bird-svg {
+fill: none;
+stroke: #333;
+stroke-width: 2;
+animation: flap 0.5s infinite ease-in-out;
+}
+
+@keyframes flap {
+0% { transform: scaleY(1); }
+50% { transform: scaleY(0.6); }
+100% { transform: scaleY(1); }
+}
+
+.light{
+position:absolute;
+border-radius:50%;
+pointer-events:none;
+filter: blur(2px);
+mix-blend-mode: screen;
+box-shadow:
+0 0 6px rgba(255,255,255,0.4),
+0 0 12px rgba(150,180,255,0.3),
+0 0 20px rgba(150,180,255,0.2);
+}
+
+@keyframes floatLight{
+0%{transform:translateY(0)}
+100%{transform:translateY(-100vh)}
+}
+
+.bird-svg {
+fill: none;
+stroke: #333;
+stroke-width: 2;
+animation: flap 0.6s infinite ease-in-out;
+}
+
+@keyframes flap {
+0% { transform: scaleY(1); }
+50% { transform: scaleY(0.5); }
+100% { transform: scaleY(1); }
+}
+
+@keyframes nebulaMove{
+0%{
+transform: translate(0,0) scale(1);
+}
+50%{
+transform: translate(-5%, -5%) scale(1.05);
+}
+100%{
+transform: translate(0,0) scale(1);
+}
+}
+
+.tiny-star{
+position:absolute;
+width:2px;
+height:2px;
+background:#FFD93D;
+border-radius:50%;
+opacity:0.6;
+pointer-events:none;
+
+animation: tinyTwinkle 3s infinite ease-in-out;
+
+z-index: 1;
+}
+
+@keyframes tinyTwinkle{
+0%,100%{opacity:0.2; transform:scale(1);}
+50%{opacity:0.9; transform:scale(1.5);}
+}
+
+/* juego */
+#game{
+margin-top:20px;
+}
+
+.code{
+background:#000;
+color:#0f0;
+padding:15px;
+border-radius:10px;
+font-family:monospace;
+letter-spacing:2px;
+}
+
+/* texto bloqueado */
+.intro.locked{
+filter: blur(8px);
+opacity:0.6;
+transition: all 0.6s ease;
+}
+
+/* texto desbloqueado */
+.unlocked{
+filter: blur(0);
+opacity:1;
+}
+
+.locked{
+filter: blur(8px);
+opacity:0.6;
+transition: all 0.6s ease;
+}
+
+.unlocked{
+filter: blur(0);
+opacity:1;
+}
+
+/* 🔐 BLOQUES DE CÓDIGO (pistas) */
+.code{
+background: var(--color-fondo);
+color: var(--color-texto);
+padding: 18px;
+border-radius: 14px;
+font-family: 'Poppins', sans-serif;
+border: 2px solid var(--color-botones);
+letter-spacing: 3px;
+box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+transition: all 0.3s ease;
+}
+
+/* efecto hover sutil */
+.code:hover{
+transform: scale(1.02);
+box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* ✏️ INPUT */
+#finalAnswer{
+padding: 12px 16px;
+border-radius: 12px;
+border: 2px solid var(--color-botones);
+outline: none;
+font-size: 16px;
+background: var(--color-fondo);
+color: var(--color-texto);
+transition: all 0.3s ease;
+}
+
+/* focus lindo */
+#finalAnswer:focus{
+border-color: var(--color-titulo);
+box-shadow: 0 0 10px rgba(0,0,0,0.15);
+transform: scale(1.03);
+}
+
+/* 🔓 BOTÓN UNLOCK */
+#game button{
+background: var(--color-botones);
+color: white;
+border: 2px solid var(--color-botones);
+padding: 12px 24px;
+border-radius: 12px;
+font-size: 16px;
+cursor: pointer;
+transition: all 0.3s ease;
+box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* hover botón */
+#game button:hover{
+background: var(--color-titulo);
+border-color: var(--color-titulo);
+transform: scale(1.08);
+box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* click efecto */
+#game button:active{
+transform: scale(0.95);
+}
+
+.sea{
+position:absolute;
+bottom:0;
+left:0;
+width:100%;
+height:35%;
+
+z-index:10;
+overflow:hidden;
+isolation:isolate;
+
+/* 🌊 TODO en un solo background */
+background:
+  radial-gradient(circle at 20% 30%, rgba(255,255,255,0.05) 2px, transparent 3px),
+  radial-gradient(circle at 70% 60%, rgba(255,255,255,0.04) 2px, transparent 3px),
+  linear-gradient(
+    to bottom,
+    #163a5f 0%,
+    #163a5f 40%,
+    #0f2f4d 100%
+  );
+
+background-size: 200px 100px, 250px 120px, 100% 100%;
+
+animation: waterMove 8s linear infinite;
+}
+
+.sea::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:2px;
+
+/* color del horizonte (ligeramente más claro) */
+background: rgba(255,200,150,0.6);
+
+opacity:0.8;
+}
+
+.sea::after{
+content:"";
+position:absolute;
+top:0;
+left:50%;
+width:100px;
+height:100%;
+
+transform:translateX(-50%);
+
+background: linear-gradient(
+to bottom,
+rgba(255,200,120,0.7) 0%,
+rgba(255,160,80,0.5) 30%,
+rgba(255,140,60,0.3) 60%,
+transparent 100%
+);
+
+filter: blur(4px);
+opacity:0.4;
+
+animation: reflectionMove 4s ease-in-out infinite;
+
+pointer-events:none;
+
+z-index: 2;
+}
+
+@keyframes reflectionMove{
+0%,100%{
+transform:translateX(-50%) scaleX(1);
+}
+50%{
+transform:translateX(-48%) scaleX(1.2);
+}
+}
+
+.sand{
+position:absolute;
+bottom:0;
+left:0;
+width:100%;
+height:15%;
+
+background: linear-gradient(
+to top,
+#c9a27c,
+#e6c3a3
+);
+
+overflow: visible;
+
+z-index:3;
+overflow:hidden;
+}
+
+.sand {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 15%;
+  background: linear-gradient(to top, #c9a27c, #e6c3a3);
+  z-index: 3;
+  overflow: visible;
+}
+
+/* borde ondulado de arena */
+.sand::before {
+  content: "";
+  position: absolute;
+  top: -40px; /* justo donde empieza la espuma */
+  left: 0;
+  width: 100%;
+  height: 60px;
+  
+  background: #f2d6a2;
+  clip-path: 
+    polygon(
+      0% 100%, 5% 60%, 10% 68%, 15% 55%, 20% 65%, 25% 52%, 
+      30% 70%, 35% 60%, 40% 68%, 45% 55%, 50% 70%, 55% 60%, 
+      60% 68%, 65% 55%, 70% 70%, 75% 60%, 80% 68%, 85% 55%, 
+      90% 65%, 95% 58%, 100% 60%, 100% 100%
+    );
+
+  z-index: 5;
+}
+
+.sea, .sand{
+opacity:0;
+transition:opacity 1.5s ease;
+}
+
+.sunset .sea,
+.sunset .sand{
+opacity:1;
+}
+
+#sky:not(.sunset) .sea,
+#sky:not(.sunset) .sand{
+opacity:0;
+}
+
+@keyframes reflectionMove{
+  0%,100%{
+    transform:translateX(-50%) scaleX(1);
+  }
+  50%{
+    transform:translateX(-48%) scaleX(1.2);
+  }
+}
+
+@keyframes waterMove{
+  0%{
+    background-position: 0 0, 0 0;
+  }
+  100%{
+    background-position: 200px 0, -250px 0;
+  }
+}
+
+.musicPlayer{
+margin-top:20px;
+text-align:center;
+}
+
+#songTitle{
+font-size:18px;
+margin-bottom:10px;
+color:var(--color-texto);
+font-weight:600;
+}
+
+.controls button{
+margin:5px;
+font-size:18px;
+padding:10px 15px;
+border-radius:10px;
+cursor:pointer;
+transition:0.2s;
+}
+
+.controls button:hover{
+transform:scale(1.1);
+}
+
+/* contenedor para videos */
+.video-wrapper{
+position:relative;
+display:block;
+}
+
+/* icono play */
+.video-wrapper::after{
+content:"▶";
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%, -50%);
+
+font-size:40px;
+color:white;
+
+background:rgba(0,0,0,0.5);
+width:60px;
+height:60px;
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+pointer-events:none;
+transition:0.3s;
+}
+
+/* efecto hover (opcional) */
+.video-wrapper:hover::after{
+transform:translate(-50%, -50%) scale(1.2);
+background:rgba(0,0,0,0.7);
+}
+
+header, section, footer{
+  position:relative;
+  z-index:1;
+}
+
+body{
+  position:relative;
+  z-index:0;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,220,180,0.15), transparent 60%),
+    radial-gradient(circle at 80% 70%, rgba(255,180,140,0.12), transparent 60%);
+
+  pointer-events:none;
+  z-index:-1;
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+
+  background:
+    radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+
+  background-size: 120px 120px, 100px 100px;
+
+  pointer-events:none;
+  z-index:-1;
+}
+
+.bg-overlay{
+  position:fixed;
+  inset:0;
+  box-shadow: inset 0 0 120px rgba(0,0,0,0.25);
+  pointer-events:none;
+  z-index:0;
+}
+
+#puzzle-container{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin-top:20px;
+}
+
+#puzzle{
+  width:600px;
+  height:400px;
+  background:rgba(0,0,0,0.1);
+  border-radius:15px;
+  overflow:hidden;
+}
+
+</style>
+</head>
+<body>
+
+<div class="bg-overlay"></div>
+<div class="hearts" id="hearts"></div>
+<div class="balloons" id="balloons"></div>
+
+<header>
+<h1>Nuestra Historia ❤️</h1>
+<div id="timer"></div>
+<button onclick="toggleDarkMode()" id="darkBtn">🌙 Modo oscuro</button>
+</header>
+
+<section>
+<div class="card">
+<h2>Cómo empezó todo</h2>
+
+<!-- TEXTO (BORROSO) -->
+<p class="intro locked" id="historiaTexto">
+No sé cuánto habrás tardado en desbloquear esto, pero espero te guste.
+Ya pasó tanto tiempo que cuesta acordarse pero nos conocimos en la escuela, yo era un chico muy tímido,cosa que pude cambiar y fue algo de lo que no me voy a arrepentir nunca, gracias a eso hoy en día estamos donde estamos.
+Sabes lo que me costaba expresarme y hoy en día poder hacerlo y con vos es algo que me encanta, gracias a vos soy como soy, no sería ni la mitad de la persona que soy si no fuera por vos, te agradezco por lo q hiciste y hacés por mí, no te dás una idea de lo mucho que me ayudas.
+Gracias por ser vos, por sacarme del pozo en el que estaba, y de seguir siendo la persona de mis sueños, en 2019 encontré a una persona chiquitita con una hermosa sonrisa que hoy en día (2026) sigo teniendo, y voy a tener para toda la vida. Nunca dejes de sonreir,nunca dejes de mirarme con el ojo izquierdo porque cerrás el derecho en la moto, nunca dejes de molestarme, nunca dejes de amarme como lo hiciste siempre, y la más importante, nunca dejes de luchar por tus cosas, sos la persona mas fuerte que conozco.
+Sé que esto va a durar mucho tiempo, porque asi lo deseo y voy a hacer todo lo posible para lograrlo, nos veo (en algún momento)casados con uno o dos hijos (y un Golden). Yo sé que es algo difícil porque falta mucho pero no es imposible,y si se trata de soñar, siempre lo voy a hacer con vos. También quiero que sepas que
+ya va a llegar ese momento del casamiento y creéme que voy a intentar hacer algo especial o al menos original como siempre intento hacer, te digo desde ahora porque sé que algo se me va a ocurrir y no te lo vas a esperar.
+Ya quiero que llegue el futuro, quiero vivir con vos, dormir con vos, y hacer todo juntos me emociona. Aunque ya hacemos muchas cosas juntos, quiero vivir mi vida 100% con vos, viajar, hacer planes los findes, los Sábados de pelis, los Domingos de Iglesia, todo y absolutamente todo con vos.
+Desde ese día en el que nos conocimos, y nos pusimos en una relación(aún sin saber lo que implicaba) yo soy un 1000% más feliz. Y eso es gracias a vos, jamás voy a dejar de darle gracias a Dios por vos, llegaste en mi peor momento y yo voy a intentar devolverte todo lo que hiciste por mí, pero no creo nunca poder llegar a hacerlo.
+Te amo mucho Cachetes, espero hacernos felices por muchísimos años más. </p>
+
+<!-- JUEGO -->
+<div id="game">
+
+<h3>🔐 Descifrá el mensaje</h3>
+
+<p class="code">
+10-15-9-14-5-4 / 20-15-7-5-20-8-5-18 / 23-8-1-20 / 8-1-19 / 7-15-4
+</p>
+
+<p class="code">
+-- .- -. / .-.. . - / ... . .--. .- .-. .- - . / -. ---
+</p>
+
+<input id="finalAnswer" placeholder="Si lograste decifrarlo, escribilo">
+<br><br>
+<button onclick="checkFinal()">Desbloquear</button>
+
+</div>
+
+</div>
+</section>
+
+
+<p class="secretText">Puede ser q haya cosas escondidas en todos lados...</p>
+</div>
+</section>
+
+<div class="card">
+<h2>❤️ Cosas que amo de vos</h2>
+
+<ul class="loveList">
+<li>Tu sonrisa</li>
+<li>Cómo me haces reír todavía en los días malos.</li>
+<li>Las charlas largas de madrugada.</li>
+<li>Los momentos que pasamos juntos.</li>
+<li>Tu forma de amar.</li>
+<li>Tu manera de afrontar las cosas malas.</li>
+<li>La dedicación y esmero que le pones a todo lo que te gusta.</li>
+</ul>
+
+</div>
+
+<section>
+<h2>Nuestros momentos 📸</h2>
+<div class="heart-gallery">
+<img src="pareja.jpg">
+<video muted playsinline>
+<source src="video1.mp4" type="video/mp4">
+</video>
+<img src="pareja1.jpg">
+<img src="pareja2.jpg">
+<img src="pareja3.jpg">
+<img src="pareja4.jpg">
+<video muted playsinline>
+<source src="video2.mp4" type="video/mp4">
+</video>
+<img src="pareja5.jpg">
+<img src="pareja6.jpg">
+<img src="pareja7.jpg">
+<video muted playsinline>
+<source src="video9.mp4" type="video/mp4">
+</video>
+<img src="pareja8.jpg">
+<img src="pareja9.jpg">
+<video muted playsinline>
+<source src="video3.mp4" type="video/mp4">
+</video>
+<img src="pareja10.jpg">
+<img src="pareja11.jpg">
+<img src="pareja12.jpg">
+<img src="pareja13.jpg">
+<video muted playsinline>
+<source src="video4.mp4" type="video/mp4">
+</video>
+<img src="pareja14.jpg">
+<img src="pareja15.jpg">
+<img src="pareja16.jpg">
+<video muted playsinline>
+<source src="video8.mp4" type="video/mp4">
+</video>
+<img src="pareja17.jpg">
+<img src="pareja18.jpg">
+<video muted playsinline>
+<source src="video5.mp4" type="video/mp4">
+</video>
+<img src="pareja19.jpg">
+<img src="pareja20.jpg">
+<img src="pareja21.jpg">
+<video muted playsinline>
+<source src="video6.mp4" type="video/mp4">
+</video>
+<img src="pareja22.jpg">
+<img src="pareja23.jpg">
+<img src="pareja24.jpg">
+<video muted playsinline>
+<source src="video7.mp4" type="video/mp4">
+</video>
+<img src="pareja25.jpg">
+<img src="pareja26.jpg">
+<img src="pareja27.jpg">
+<img src="pareja28.jpg">
+<img src="pareja29.jpg">
+<img src="pareja30.jpg">
+<img src="pareja31.jpg">
+<img src="pareja32.jpg">
+<img src="pareja33.jpg">
+<img src="pareja34.jpg">
+<img src="pareja35.jpg">
+<img src="pareja36.jpg">
+<img src="pareja37.jpg">
+<img src="pareja38.jpg">
+<img src="pareja39.jpg">
+<img src="pareja42.jpg">
+<img src="pareja43.jpg">
+<video muted playsinline>
+<source src="video10.mp4" type="video/mp4">
+</video>
+<img src="pareja44.jpg">
+<img src="pareja45.jpg">
+<img src="pareja46.jpg">
+<img src="pareja47.jpg">
+<img src="pareja48.jpg">
+<img src="pareja49.jpg">
+<img src="pareja50.jpg">
+<img src="pareja51.jpg">
+<img src="pareja52.jpg">
+<img src="pareja53.jpg">
+<img src="pareja54.jpg">
+<img src="pareja55.jpg">
+<img src="pareja56.jpg">
+<video muted playsinline>
+<source src="video11.mp4" type="video/mp4">
+</video>
+<img src="pareja57.jpg">
+<img src="pareja58.jpg">
+<img src="pareja60.jpg">
+<img src="pareja61.jpg">
+<img src="pareja62.jpg">
+<img src="pareja63.jpg">
+<img src="pareja64.jpg">
+<img src="pareja65.jpg">
+<img src="pareja66.jpg">
+<img src="pareja67.jpg">
+<img src="pareja68.jpg">
+<img src="pareja69.jpg">
+<img src="pareja70.jpg">
+<img src="pareja71.jpg">
+<img src="pareja72.jpg">
+<img src="pareja73.jpg">
+<img src="pareja74.jpg">
+<video muted playsinline>
+<source src="video12.mp4" type="video/mp4">
+</video>
+<img src="pareja75.jpg">
+<img src="pareja76.jpg">
+<img src="pareja77.jpg">
+<img src="pareja78.jpg">
+<img src="pareja79.jpg">
+<img src="pareja80.jpg">
+
+</div>
+</section>
+
+<section>
+<div class="card">
+<h2>Desbloqueá el mensaje escondido 🔐</h2>
+<input id="password" placeholder="Palabra secreta">
+<br><br>
+<button onclick="checkPassword()">Desbloquear</button>
+<div id="secretMessage">💌 No siempre a los curiosos se los cojen... o si</div>
+</div>
+
+</section>
+
+<section id="sky">
+<h2 class="skyText">Cielo de deseos ⭐</h2>
+<p class="skyText">Tocá alguna estrella...</p>
+  <div class="sea">
+  </div>
+  <div class="sand"></div>
+
+</section>
+
+<section>
+  <div class="card">
+    <h2>🧩 Armá este rompecabezas</h2>
+    <p>Si lográs armarlo… pasa algo especial 😏</p>
+
+    <div id="puzzle-container">
+      <div id="puzzle"></div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+<div class="card">
+<h2>¿Vos me amás? 😏</h2>
+<button id="yesBtn" class="loveBtn">Sí y mucho ❤️</button>
+<button id="noBtn">No</button>
+</div>
+</section>
+
+<section>
+<div class="card">
+<h2>🎵 Canciones</h2>
+<p>Cambiá la canción:</p>
+<div class="musicPlayer">
+
+  <div id="songTitle">🎵 Ninguna canción</div>
+
+  <div class="controls">
+    <button onclick="prevSong()">⏮</button>
+    <button onclick="togglePlay()" id="playBtn">▶️</button>
+    <button onclick="nextSong()">⏭</button>
+  </div>
+
+</div>
+
+</section>
+
+<div id="finalSecret">Pista: aveces el final también guarda secretos...</div>
+
+<section>
+<div class="card">
+<h2>💭 Tiempo que llevo pensando en vos</h2>
+<div id="loveCounter" class="loveCounter"></div>
+</section>
+
+<footer>
+<p>Hecho con 2 meses de dolores de cabeza, de espalda, madrugadas sin dormir, pero con mucho amor, que es lo menos que te merecés❤️</p>
+</footer>
+
+<iframe id="player" width="1" height="1"
+src="https://www.youtube.com/embed/0diOZSlLKdg?enablejsapi=1&loop=1&playlist=0diOZSlLKdg"
+allow="autoplay">
+</iframe>
+
+<script>
+
+let lightCount = 0
+const MAX_LIGHTS = 120
+
+
+// contador
+const startDate=new Date("2019-04-27")
+function updateTimer(){
+const now=new Date()
+let diff=now-startDate
+let days=Math.floor(diff/(1000*60*60*24))
+let hours=Math.floor((diff/(1000*60*60))%24)
+let minutes=Math.floor((diff/1000/60)%60)
+document.getElementById("timer").innerHTML=`Te llevo aguantando: ${days} días ${hours} horas ${minutes} minutos ❤️`
+}
+setInterval(updateTimer,60000)
+updateTimer()
+
+// corazones
+function createHeart(){
+const heart=document.createElement("div")
+heart.className="heart"
+
+heart.style.left=Math.random()*100+"vw"
+
+// 🎨 colores pastel
+const colors = [
+  "#ff9aa2",
+  "#ffb7b2",
+  "#ffdac1",
+  "#e2f0cb",
+  "#b5ead7",
+  "#c7ceea",
+  "#f8c8dc",
+  "#f6b5c0"
+]
+
+heart.style.color = colors[Math.floor(Math.random() * colors.length)]
+
+heart.innerHTML="❤"
+document.getElementById("hearts").appendChild(heart)
+setTimeout(()=>{heart.remove()},6000)
+}
+setInterval(createHeart,700)
+
+// globos
+function createBalloon(){
+const balloon=document.createElement("div")
+balloon.className="balloon"
+balloon.style.left=Math.random()*100+"vw"
+// 🎨 colores
+const colors = [
+  "#C57D56",
+  "#E6B89C",
+  "#825339",
+  "#5D2417",
+  "#f28c6f",
+  "#d9a07c"
+]
+balloon.style.background = colors[Math.floor(Math.random() * colors.length)]
+
+// 📏 tamaño (PUNTO 2)
+let size = Math.random() * 40 + 50
+balloon.style.width = size + "px"
+balloon.style.height = (size * 1.3) + "px"
+
+// ⏱ velocidad
+balloon.style.animationDuration=(Math.random()*6+8)+"s"
+balloon.style.opacity = Math.random() * 0.3 + 0.7
+if(Math.random()<0.1){
+balloon.onclick=function(){alert("🎈 Pista: la palabra es la frecuencia con la que te sonás los dedos, osea... ")}
+}
+document.getElementById("balloons").appendChild(balloon)
+setTimeout(()=>{balloon.remove()},12000)
+}
+setInterval(createBalloon,1200)
+
+// contraseña
+function checkPassword(){
+const pass = document.getElementById("password").value.toLowerCase()
+
+if(pass === "siempre"){
+document.getElementById("secretMessage").style.display="block"
+}
+else{
+alert("Tas equivocada sanguanga, nose vo fijate... 👀")
+}
+}
+
+// estrellas
+function getSky(){
+    return document.getElementById("sky")
+}
+
+const starMessages = [
+"Sos mi estrella mas linda(y única) ⭐",
+"Te amo con todo mi ser, hermosa",
+"Te elijo hoy y siempre❤️",
+"Nuestro amor es como yo, corte que re lindo ✨",
+"Somos como la Chabona y Kiko",
+"sos el salame de mi queso",
+"Sos mi Alonso y yo tu Mazza(sin los músculos)"
+]
+
+function createStars(){
+
+console.log("⭐ creando estrellas grandes")
+
+let starPositions = []
+
+function isTooClose(x, y){
+return starPositions.some(pos=>{
+let dx = pos.x - x
+let dy = pos.y - y
+return Math.sqrt(dx*dx + dy*dy) < 8
+})
+}
+
+for(let i=0;i<30;i++){
+
+let x, y
+let tries = 0
+
+do{
+x = Math.random()*100
+y = Math.random()*100
+tries++
+}while(isTooClose(x,y) && tries < 50)
+
+starPositions.push({x,y})
+
+let star = document.createElement("div")
+star.className = "star"
+star.innerHTML = "★"
+
+if(document.body.classList.contains("dark-mode")){
+    star.style.opacity = "0.8"
+}
+
+star.style.left = x + "%"
+star.style.top = y + "%"
+
+let size = Math.random()*10 + 10
+star.style.fontSize = size + "px"
+
+star.style.animationDelay = Math.random()*3 + "s"
+star.style.animationDuration = (Math.random()*2 + 1.5) + "s"
+
+star.onclick = function(){
+alert(starMessages[Math.floor(Math.random()*starMessages.length)])
+}
+
+sky.appendChild(star)
+}
+}
+
+
+function createSun(){
+const sky = document.getElementById("sky")
+
+if(document.querySelector(".sun")) return
+
+const sun = document.createElement("div")
+sun.className = "sun"
+
+// click al sol
+sun.onclick = function(){
+
+const sky = document.getElementById("sky")
+
+// 🌇 SI YA ES ATARDECER → VOLVER A DÍA
+if(sky.classList.contains("sunset")){
+
+    sky.classList.remove("sunset")
+
+    // eliminar mar y arena
+    document.querySelectorAll(".sea, .sand, .bird").forEach(e => e.remove())
+
+    // volver a generar cielo de día
+    createDaySky()
+
+    return
+}
+
+// 🌇 ACTIVAR ATARDECER
+sky.classList.add("sunset")
+
+// 🌊 crear mar y arena
+if(!document.querySelector(".sea")){
+    const sea = document.createElement("div")
+    sea.className = "sea"
+
+const foam = document.createElement("div")
+foam.className = "foam"
+sea.appendChild(foam)
+
+    const sand = document.createElement("div")
+    sand.className = "sand"
+
+    sky.appendChild(sea)
+    sky.appendChild(sand)
+}
+
+// eliminar pájaros
+document.querySelectorAll(".bird").forEach(b => b.remove())
+
+ // ocultar nubes
+    document.querySelectorAll(".cloud").forEach(c=>{
+        c.style.transition = "opacity 1.5s ease"
+        c.style.opacity = "0"
+    })
+
+// luces flotantes
+for(let i=0;i<20;i++){
+    createLight()
+}
+}
+
+// 👉 esto SIEMPRE va afuera
+sky.appendChild(sun)
+}
+
+function createDaySky(){
+const sky = document.getElementById("sky")
+function createCloud(){
+const cloud = document.createElement("div")
+cloud.className="cloud"
+
+cloud.style.opacity = Math.random()*0.5 + 0.3
+cloud.style.filter = "blur(" + Math.random()*2 + "px)"
+cloud.style.top = Math.random()*70 + "%"
+
+let size = Math.random()*120 + 80
+cloud.style.width = size + "px"
+cloud.style.height = (size*0.5) + "px"
+
+cloud.style.animationDuration = (Math.random()*25+10)+"s"
+cloud.style.left = "-150px"
+
+document.getElementById("sky").appendChild(cloud)
+
+setTimeout(()=>{
+    if(cloud.parentElement){
+        cloud.remove()
+    }
+}, 150000)
+}
+
+// limpiar cielo
+document.querySelectorAll(".cloud, .sun, .moon, .bird").forEach(e=>e.remove())
+
+// nubes
+for(let i=0;i<20;i++){
+let cloud = document.createElement("div")
+cloud.className="cloud"
+
+cloud.style.opacity = Math.random()*0.5 + 0.3
+cloud.style.filter = "blur(" + Math.random()*2 + "px)"
+cloud.style.top = Math.random()*70 + "%"
+let size = Math.random()*120 + 80
+cloud.style.width = size + "px"
+cloud.style.height = (size*0.5) + "px"
+cloud.style.animationDuration = (Math.random()*40+30)+"s"
+cloud.style.left = Math.random()*100 + "%"
+
+sky.appendChild(cloud)
+}
+
+// sol
+createSun()
+
+// pájaros
+for(let i=0;i<5;i++){
+let bird = document.createElement("div")
+bird.className="bird"
+bird.innerHTML = `
+<svg viewBox="0 0 24 24" width="24" height="24" fill="black">
+<path d="M2 12c3-2 5-2 7 0s4 2 7 0 5-2 7 0"/>
+</svg>
+`;
+
+let startY = Math.random() * 40 + 10 // altura inicial
+
+bird.style.animationDuration = (Math.random()*8 + 10) + "s"
+bird.style.transform = `translate(-10vw, ${startY}vh)`
+sky.appendChild(bird)
+}
+}
+
+
+// boton no que escapa
+const noBtn=document.getElementById("noBtn")
+const yesBtn=document.getElementById("yesBtn")
+let attempts=0
+
+noBtn.addEventListener("mouseover",()=>{
+const x=Math.random()*window.innerWidth*0.8
+const y=Math.random()*window.innerHeight*0.8
+noBtn.style.position="fixed"
+noBtn.style.left=x+"px"
+noBtn.style.top=y+"px"
+attempts++
+if(attempts>6){
+alert("Decime que sí porque sino lloro")
+for(let i=0;i<30;i++) createHeart()
+}
+})
+
+yesBtn.addEventListener("click",()=>{
+alert("Yo sabía que me amabas, quién no lo hace 😌")
+})
+
+// cambiar musica
+function changeSong(id){
+const player = document.getElementById("player")
+player.src = "https://www.youtube.com/embed/" + id + "?autoplay=1&loop=1&playlist=" + id
+}
+
+// contador pensando en vos
+let loveSeconds=1
+function updateLoveCounter(){
+let days=Math.floor(loveSeconds/86400)
+let hours=Math.floor((loveSeconds%86400)/3600)
+let minutes=Math.floor((loveSeconds%3600)/60)
+let seconds=loveSeconds%60
+
+const text=`${days} días ${hours} horas ${minutes} minutos ${seconds} segundos` 
+const el=document.getElementById("loveCounter")
+if(el) el.innerHTML=text
+loveSeconds++
+}
+setInterval(updateLoveCounter,1000)
+updateLoveCounter()
+
+// easter egg final
+window.addEventListener("scroll",()=>{
+if(window.innerHeight + window.scrollY >= document.body.offsetHeight){
+setTimeout(()=>{
+alert("💌 Gracias por tomarte el tiempo de mirar toda la página. Te amo hermosa Mía ❤️")
+},500)
+}
+})
+
+const loveItems=document.querySelectorAll('.loveList li')
+
+loveItems.forEach((item,i)=>{
+setTimeout(()=>{
+item.classList.add('show')
+},600*i)
+}) 
+
+// abrir imagen
+document.querySelectorAll('.heart-gallery img').forEach(img=>{
+img.addEventListener('click',()=>{
+document.getElementById("viewer").style.display="flex"
+document.getElementById("viewerImg").src=img.src
+document.getElementById("viewerImg").style.display="block"
+document.getElementById("viewerVideo").style.display="none"
+})
+})
+
+// abrir video
+document.querySelectorAll('.heart-gallery video').forEach(video=>{
+video.addEventListener('click',()=>{
+document.getElementById("viewer").style.display="flex"
+const viewerVideo=document.getElementById("viewerVideo")
+viewerVideo.src=video.querySelector("source").src
+viewerVideo.style.display="block"
+document.getElementById("viewerImg").style.display="none"
+viewerVideo.play()
+})
+})
+
+// cerrar visor
+function closeViewer(){
+document.getElementById("viewer").style.display="none"
+document.getElementById("viewerVideo").pause()
+}
+
+function toggleDarkMode(){
+document.body.classList.toggle("dark-mode")
+
+const btn = document.getElementById("darkBtn")
+const isDark = document.body.classList.contains("dark-mode")
+
+if(isDark){
+localStorage.setItem("modo","oscuro")
+btn.innerHTML="☀️ Modo claro"
+
+// borrar sol y nubes
+document.querySelectorAll(".cloud, .sun").forEach(e=>e.remove())
+
+const sky = document.getElementById("sky")
+
+// 💥 quitar atardecer si estaba activo
+sky.classList.remove("sunset")
+
+// 💥 resetear fondo (muy importante)
+sky.style.background = ""
+
+// eliminar pájaros al pasar a noche
+document.querySelectorAll(".bird").forEach(e => e.remove())
+
+// crear luna
+if(!document.querySelector(".moon")){
+let moon = document.createElement("div")
+moon.className="moon"
+document.getElementById("sky").appendChild(moon)
+}
+
+// micro-estrellas
+createTinyStars()
+
+// forzar recreación
+setTimeout(()=>{
+createStars()
+}, 50)
+
+}else{
+localStorage.setItem("modo","claro")
+btn.innerHTML="🌙 Modo oscuro"
+
+// borrar luna
+document.querySelectorAll(".moon").forEach(e=>e.remove())
+
+
+// borrar micro-estrellas
+document.querySelectorAll(".tiny-star").forEach(e=>e.remove())
+
+
+// borrar estrellas grandes
+document.querySelectorAll(".star").forEach(e=>e.remove())
+
+// volver a crear cielo de día
+createDaySky()
+}
+}
+
+// cargar modo guardado + cielo inicial
+window.onload = () => {
+const modo = localStorage.getItem("modo")
+
+if(modo === "oscuro"){
+document.body.classList.add("dark-mode")
+document.getElementById("darkBtn").innerHTML="☀️ Modo claro"
+
+// crear luna
+let moon = document.createElement("div")
+moon.className="moon"
+document.getElementById("sky").appendChild(moon)
+
+// esperar a que todo cargue bien
+setTimeout(()=>{
+
+createTinyStars()
+createStars()
+
+}, 100)
+
+}else{
+createDaySky()
+}
+
+initPuzzle()
+}
+
+function createShootingStar(){
+const star = document.createElement("div")
+star.className = "shooting-star"
+
+// posición inicial
+star.style.left = Math.random()*100 + "%"
+star.style.top = Math.random()*50 + "%"
+
+// tamaño y velocidad aleatoria
+let length = Math.random()*80 + 60
+star.style.height = length + "px"
+
+let duration = Math.random()*1 + 0.8
+star.style.animationDuration = duration + "s"
+
+// dirección aleatoria
+let angle = Math.random()*60 + 20
+star.style.transform = `rotate(${angle}deg)`
+
+
+
+document.getElementById("sky").appendChild(star)
+
+setTimeout(()=>{
+star.remove()
+}, duration*1000)
+}
+
+setInterval(()=>{
+if(document.body.classList.contains("dark-mode") && Math.random() < 0.5){
+createShootingStar()
+}
+},3000)
+
+function createBird(flock = false){
+const bird = document.createElement("div")
+bird.className = "bird"
+
+bird.innerHTML = `
+<svg viewBox="0 0 24 24" width="20" height="20" class="bird-svg">
+<path d="M2 12 Q6 8 10 12 Q14 16 18 12 Q20 10 22 12" />
+</svg>
+`
+
+const sky = document.getElementById("sky")
+
+let startY
+
+if(document.getElementById("sky").classList.contains("sunset")){
+    startY = Math.random() * 25 + 5   // 🌇 más arriba en atardecer
+} else {
+    startY = Math.random() * 40 + 10  // ☀️ normal en el día
+}
+
+let startX = -10
+
+bird.style.left = startX + "vw"
+bird.style.top = startY + "vh"
+
+// tamaño aleatorio (profundidad)
+let scale = Math.random()*0.5 + 0.5
+// profundidad (capa)
+let layer = Math.random()
+
+if(layer < 0.33){
+    bird.style.zIndex = 2 // ENTRE sol y nubes
+    scale *= 0.7
+    bird.style.opacity = 0.7
+}
+else if(layer < 0.66){
+    bird.style.zIndex = 4 // ENTRE nubes
+    scale *= 0.9
+}
+else{
+    bird.style.zIndex = 6 // DELANTE de todo
+    scale *= 1.2
+}
+
+if(document.getElementById("sky").classList.contains("sunset")){
+    bird.style.zIndex = 4
+}
+
+bird.style.transform = `scale(${scale})`
+
+sky.appendChild(bird)
+
+// movimiento natural
+let x = startX
+let y = startY
+
+//tipo de pájaro (lento, normal, rápido)
+let type = Math.random()
+
+let speed
+
+if(type < 0.4){
+    speed = Math.random()*0.02 + 0.01
+}else if(type < 0.8){
+    speed = Math.random()*0.03 + 0.02
+}else{
+    speed = Math.random()*0.04 + 0.03
+}
+
+// 🌇 más lento en atardecer
+if(document.getElementById("sky").classList.contains("sunset")){
+    speed *= 0.3
+}
+
+let wave = Math.random() * 2 + 1
+let direction = Math.random() < 0.5 ? 1 : -1
+
+function animate(){
+x += speed * 5
+let movement = Math.sin(x / 10) * 0.2 * wave * direction
+
+// 🌇 límite SOLO en atardecer
+if(document.getElementById("sky").classList.contains("sunset")){
+    if(y >= 40 && movement > 0){
+        movement = 0
+    }
+}
+
+y += movement
+
+bird.style.left = x + "vw"
+bird.style.top = y + "vh"
+
+if(x < 110){
+requestAnimationFrame(animate)
+}else{
+bird.remove()
+}
+}
+
+animate()
+}
+
+function createFlock(){
+let count = Math.floor(Math.random()*2) + 1
+
+for(let i=0;i<count;i++){
+setTimeout(()=>{
+createBird(true)
+}, i*200)
+}
+}
+
+function createLight(){
+
+if(lightCount > MAX_LIGHTS) return
+
+lightCount++
+
+const light = document.createElement("div")
+light.className = "light"
+
+const sky = document.getElementById("sky")
+
+// posición inicial
+let x = Math.random() * 100
+let y = 100
+
+light.style.left = x + "vw"
+light.style.top = y + "vh"
+
+// tamaño MUY variado
+let size = Math.random() * 6 + 1
+light.style.width = size + "px"
+light.style.height = size + "px"
+
+// opacidad variada
+light.style.opacity = Math.random() * 0.7 + 0.1
+
+// color suave
+let hue = Math.random() * 60 + 200
+light.style.background = `hsla(${hue}, 100%, 80%, ${light.style.opacity})`
+
+sky.appendChild(light)
+
+setTimeout(()=>{
+if(light.parentElement){
+light.remove()
+lightCount--
+}
+}, 8000)
+
+// física más natural
+let speedY = Math.random() * 0.04 + 0.01
+let speedX = (Math.random() - 0.5) * 0.03
+
+let waveX = Math.random() * 3 + 1
+let waveY = Math.random() * 2 + 1
+
+let offset = Math.random() * 100
+
+function animate(){
+y -= speedY * 5
+
+// movimiento en X más orgánico
+x += Math.sin((y + offset) / 10) * 0.2 * waveX + speedX
+
+// pequeño zig-zag irregular
+y += Math.sin((x + offset) / 15) * 0.1 * waveY
+
+light.style.top = y + "vh"
+light.style.left = x + "vw"
+
+if(y > -10){
+requestAnimationFrame(animate)
+}else{
+light.remove()
+lightCount--
+}
+}
+
+animate()
+}
+
+function createTinyStars(){
+const sky = document.getElementById("sky")
+
+for(let i=0;i<80;i++){ // cantidad
+
+let star = document.createElement("div")
+star.className = "tiny-star"
+
+// posición aleatoria
+star.style.left = Math.random()*100 + "%"
+star.style.top = Math.random()*100 + "%"
+
+// tamaño variable (muy sutil)
+let size = Math.random()*2 + 1
+star.style.width = size + "px"
+star.style.height = size + "px"
+
+// opacidad variada
+star.style.opacity = Math.random()*0.5 + 0.2
+
+// animación distinta en cada una
+star.style.animationDuration = (Math.random()*2 + 2) + "s"
+star.style.animationDelay = Math.random()*3 + "s"
+
+sky.appendChild(star)
+}
+}
+
+setInterval(()=>{
+const sky = document.getElementById("sky")
+
+if(!document.body.classList.contains("dark-mode")){
+
+    // 90% pájaro normal
+    if(Math.random() < 0.7){
+        createBird()
+    } else {
+        // 10% bandada
+        createFlock()
+    }
+
+}
+
+}, 2000)
+
+setInterval(()=>{
+if(document.body.classList.contains("dark-mode")){
+for(let i=0;i<5;i++) createLight()
+}else{
+if(Math.random() < 0.3){ // pocas en el día
+createLight()
+}
+}
+}, 800)
+
+function checkFinal(){
+
+let input = document.getElementById("finalAnswer").value
+input = input.toLowerCase().replaceAll(" ", "").trim()
+
+let correct = "loquedioshaunido,quenolosepareelhombre"
+
+if(input === correct){
+
+// desbloquear texto
+const texto = document.getElementById("historiaTexto")
+texto.classList.remove("locked")
+texto.classList.add("unlocked")
+
+// ocultar juego
+document.getElementById("game").style.display="none"
+
+// efecto lindo
+for(let i=0;i<20;i++){
+setTimeout(()=>createHeart(), i*100)
+}
+
+alert("💌 Sos una genia❤️... ahora sí podes leer ❤️")
+
+}else{
+alert("Pa wacho, pensá un poco más")
+}
+
+}
+
+const songs = [
+  { id: "0diOZSlLKdg", name: "Carlos Rivera - ¿Cómo Pagarte?" },
+  { id: "rcRX1ma5Zh4", name: "Reik - Pero Te Conocí" },
+  { id: "dbNx2WvNFgQ", name: "Abel Pintos - El Amor en Mi Vida" },
+  { id: "M05xCP34uUw", name: "Las Pastillas Del Abuelo - Rompecabezas De Amor" },
+  { id: "mN4NNG_YHeY", name: "Jay Wheeler - EaZt" },
+  { id: "EwC-mYhEYBo", name: "Las Pastillas Del Abuelo - Princesa" },
+  { id: "tNTbzidfsNQ", name: "Reik - Sabes" }
+]
+
+let currentSong = 0
+let isPlaying = false
+
+const player = document.getElementById("player")
+const title = document.getElementById("songTitle")
+const playBtn = document.getElementById("playBtn")
+
+function loadSong(index, autoplay = true){
+  currentSong = index
+
+  const song = songs[currentSong]
+
+  player.src = `https://www.youtube.com/embed/${song.id}?enablejsapi=1&autoplay=${autoplay ? 1 : 0}&loop=1&playlist=${song.id}`
+
+  title.innerText = "🎵 " + song.name
+
+  isPlaying = autoplay
+  playBtn.innerText = isPlaying ? "⏸" : "▶️"
+}
+
+function togglePlay(){
+  if(!isPlaying){
+    loadSong(currentSong, true)
+  }else{
+    player.src = ""
+  }
+
+  isPlaying = !isPlaying
+  playBtn.innerText = isPlaying ? "⏸" : "▶️"
+}
+
+function nextSong(){
+  currentSong = (currentSong + 1) % songs.length
+  loadSong(currentSong, true)
+}
+
+function prevSong(){
+  currentSong = (currentSong - 1 + songs.length) % songs.length
+  loadSong(currentSong, true)
+}
+
+document.querySelectorAll('.heart-gallery video').forEach(video => {
+  const wrapper = document.createElement('div')
+  wrapper.className = 'video-wrapper'
+
+  video.parentNode.insertBefore(wrapper, video)
+  wrapper.appendChild(video)
+})
+
+</script>
+
+<script src="https://flbulgarelli.github.io/headbreaker/js/headbreaker.js"></script>
+<script>
+function initPuzzle(){
+
+  const img = new Image()
+  img.src = "./puzzle.jpg" // 👈 importante el ./ (misma carpeta)
+
+  img.onload = () => {
+
+    const canvas = new headbreaker.Canvas('puzzle', {
+      width: 600,
+      height: 400,
+      pieceSize: 100
+    })
+
+    // 🔥 IMPORTANTE: usar string, NO objeto imagen
+    canvas.autogenerate({
+      image: "./puzzle.jpg"
+    })
+
+    canvas.shuffle(0.7)
+    canvas.draw()
+
+    canvas.onValid(() => {
+      alert("💌 Lo lograste… ahora se desbloquea algo especial ❤️")
+    })
+
+  }
+
+  img.onerror = () => {
+    console.error("❌ No se encontró puzzle.jpg")
+  }
+}
+</script>
+<div id="viewer" class="viewer">
+<span class="closeViewer" onclick="closeViewer()">✖</span>
+<img id="viewerImg">
+<video id="viewerVideo" controls></video>
+</div>
+
+</body>
+</html>
